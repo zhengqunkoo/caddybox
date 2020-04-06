@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  caddy:
+    build:
+      context: .
+    container_name: caddy
+    command: run
+    restart: unless-stopped
+    environment:
+      - ACME_AGREE=true
+      - CLOUDFLARE_DNS_API_TOKEN=
+      - CLOUDFLARE_ZONE_API_TOKEN=
+    volumes:
+      - /home/koo/site:/var/www/html:ro
+      - /home/koo/dotcaddy/.caddy:/.caddy
+      - /home/koo/dotcaddy/.local:/.local
+      - /home/koo/dotcaddy/.config:/.config
+    ports:
+      - 80:8080
+      - 443:8443
