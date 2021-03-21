@@ -15,6 +15,17 @@ services:
       - /home/koo/dotcaddy/.caddy:/.caddy
       - /home/koo/dotcaddy/.local:/.local
       - /home/koo/dotcaddy/.config:/.config
+      - /home/koo/dotcaddy/.local/goaccess:/.local/goaccess
     ports:
       - 80:8080
       - 443:8443
+  goaccess:
+    image: allinurl/goaccess
+    container_name: goaccess
+    command: /etc/goaccess/access.log
+    restart: unless-stopped
+    volumes:
+      - /home/koo/dotcaddy/.local/goaccess:/etc/goaccess
+      - /home/koo/site/goaccess:/site/goaccess
+    ports:
+      - 7890:7890
